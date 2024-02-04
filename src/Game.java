@@ -14,6 +14,8 @@ public class Game {
     private final FEN fenctionality;
     // Move generator
     private final MoveGenerator moveGenerator;
+    // Evaluator
+    private final Evaluator evaluator;
 
     // black ansi code
     private static final String BLACK_COL = "\u001B[90m";
@@ -28,6 +30,7 @@ public class Game {
         board = new Board();
         fenctionality = new FEN();
         moveGenerator = new MoveGenerator();
+        evaluator = new Evaluator();
 
     }
 
@@ -37,6 +40,7 @@ public class Game {
         fenctionality = new FEN(fen);
         board = fenctionality.setFen(fen);
         moveGenerator = new MoveGenerator();
+        evaluator = new Evaluator();
 
     }
 
@@ -63,6 +67,7 @@ public class Game {
         while (gameEnd == null) {
 
             board.printBoard();
+            System.out.println("Eval: " + evaluator.getScore(board));
             if (moveGenerator.isInCheck()) {
                 System.out.println("check!");
             }
@@ -265,5 +270,7 @@ public class Game {
     public Board getBoard() {
         return board;
     }
+
+    public Evaluator getEvaluator() { return evaluator; }
 
 }
